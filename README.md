@@ -52,7 +52,7 @@ This folder contains three datasets. Most are stored as a **GeoPackage** (.gpkg)
   - `knox22_joined.RDS` contains a cleaned and joined version of land cover, climate, and mosquito data in R Data Serialization format, which maintains predefined factor and numeric designations for columns. 
  - `2022-Knox-Collections-Landcover-Joined.csv` contains a cleaned and joined version of land cover, climate, and mosquito data in CSV format
  - `sites22.csv` contains the names, site codes, and coordinates of the study sites
- - `knox22_clean` contains the raw mosquito collection data for the study without any climate or land cover information 
+ - `knox22_clean.csv` contains the raw mosquito collection data for the study without any climate or land cover information 
  - `NLCD_2019_landcover_clippedtoKnox.tif` contains the NLCD land cover data, already clipped to Knox County, TN, USA
  - `knox22_temperature.csv` contains raw daily temperatures for the city of Knoxville in 2022
  - `knox22_rainfall.csv` contains raw daily precipitation for the city of Knoxville watersheds in 2022
