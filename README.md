@@ -1,4 +1,4 @@
-# Data and Reproducible Analysis For: "Fine-Scale Associations Between Land Cover Composition and the Oviposition Activty of Native and Invasive Aedes Vectors of La Crosse Virus"
+# Data and Reproducible Analysis For: "Fine-Scale Associations Between Land Cover Composition and the Oviposition Activity of Native and Invasive Aedes Vectors of La Crosse Virus"
 
 This repository contains pre-processed data sets and code scripts to reproduce the data processing and analyses that are presented in the corresponding manuscript. Some minor pre-processing was completed before presenting this -- namely, the land cover raster was clipped to the study area of Knox County, Tennessee, USA, prior to placing in the repository to reduce the file size. 
 
