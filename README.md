@@ -36,7 +36,7 @@ The R package `renv` was used to create a **project library**, which contains al
 
 # `data/` Folder
 
-This folder contains three datasets. Most are stored as a **GeoPackage** (.gpkg), which is a platform-independent format for storing geographic information and related attributes. These files can be opened in a variety of software, including open-source programs like R and QGIS, but also proprietary GIS software like ArcGIS Pro. See `data dictionary.txt` for a description of all attributes contained within each file. 
+This folder contains several datasets, including one that compiles them all for analyses (`knox_joined`). The raw data are included to show how the data was processed and aggregated, but the individual raw data files are not needed for analyses. See `data dictionary.txt` for a description of all attributes contained within each file. 
 
 ## Files within the `data/` folder
   - `knox22_joined.RDS` contains a cleaned and joined version of land cover, climate, and mosquito data in R Data Serialization format, which maintains predefined factor and numeric designations for columns. 
@@ -51,7 +51,7 @@ This folder contains three datasets. Most are stored as a **GeoPackage** (.gpkg)
 
 # `analysis/` Folder
 
-The `analysis/` folder contains scripts for reproducing the purely spatial cluster analysis and predictor investigation from Day et al. (2024). Files with a .R extension are R scripts that should be opend with RStudio. 
+The `analysis/` folder contains scripts for processing data and conducting analyses. Each file is an R script that should be opened in R studio. The first shows how to process and aggregate the various raw data files; if you are only interested in reproducing analyses from the manuscript, you can skip to the second file and work from there. 
 
 ## Files within the `analysis/` folder
 
@@ -59,7 +59,7 @@ The files are numbered in the order that they were run for the original analysis
 
  - `(1)dataprep.R` contains the code for cleaning and combining the land cover, climate, and mosquito data -- this includes calculating the land cover percentages at different scales and calculating weekly and timelagged climate values
  - `(2)summary_analysis.R` contains code for reproducing summary data and creating graphs from the manuscript
- - `(3)variable_selection.R` contains code for asssessing collinearity and fitting models to identify the best fitting variables for each speceis
+ - `(3)modeling.R` contains code for asssessing collinearity and fitting models to identify the best fitting variables for each speceis
  - `(4)finalmodels.R` contains code for fitting the final models using the selected variables for each species 
 
 # `renv/` Folder
