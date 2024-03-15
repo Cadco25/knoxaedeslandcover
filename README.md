@@ -4,18 +4,6 @@ This repository is published in Zenodo at the following DOI: 10.5281/zenodo.1082
 
 This repository contains pre-processed data sets and code scripts to reproduce the data processing and analyses that are presented in the corresponding manuscript. Some minor pre-processing was completed before presenting this -- namely, the land cover raster was clipped to the study area of Knox County, Tennessee, USA, prior to placing in the repository to reduce the file size. 
 
-# References for source data 
-
- - Some of the data in this repository were originally obtained from open access sources. 
-
- - Land cover data was obtained from the National Land Cover Database (NLCD) 2019 data product, specifically the "NLCD 2019 Land Cover (CONUS)" product. The original, unclipped raster can be freely downloaded here: https://www.mrlc.gov/data/nlcd-2019-land-cover-conus
-
- - Temperature data was downloaded from the United States National Oceanic and Atmospheric Administration (NOAA) weather station for Knoxville, Tennessee. The source data can be downloaded from this site: https://www.weather.gov/mrx/tysclimate
-
- - Rainfall data was obtained from the City of Knoxville rainfall data website, located here: https://www.knoxvilletn.gov/government/city_departments_offices/engineering/stormwater_engineering_division/rainfall_data
-
- - All mosquito collection data was collected directly by the manuscript authors
-
 # How to use this repository to reproduce results 
 
 This repository is designed to support the reproduction of analyses in the associated manuscript. The entire project can be downloaded and stored anywhere on your computer, as long as the file structure is not altered. The project contains folders with all data sets and code scripts necessary for analysis. 
@@ -81,3 +69,15 @@ The `renv/` folder contains bits and pieces needed for the `renv` package. Nothi
 # Other miscelleanous files
 
 Several other files are present in the root directory. None of these need to be manipulated. The only file you will actively use is the R Project file, which will open the project in RStudio and automatically set the relative paths based on the file structure of this repository. 
+
+# References for source data 
+
+ - Some of the data in this repository were originally obtained from open access sources. 
+
+ - Land cover data was obtained from the National Land Cover Database (NLCD) 2019 data product, specifically the "NLCD 2019 Land Cover (CONUS)" product. The original, unclipped raster can be freely downloaded here: https://www.mrlc.gov/data/nlcd-2019-land-cover-conus
+
+ - Temperature data was downloaded from the United States National Oceanic and Atmospheric Administration (NOAA) weather station for Knoxville, Tennessee. The source data can be downloaded from this site: https://www.weather.gov/mrx/tysclimate
+
+ - Rainfall data was obtained from the City of Knoxville rainfall data website, located here: https://www.knoxvilletn.gov/government/city_departments_offices/engineering/stormwater_engineering_division/rainfall_data
+
+ - All mosquito collection data was collected directly by the manuscript authors
