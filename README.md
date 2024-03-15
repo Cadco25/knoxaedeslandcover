@@ -38,8 +38,8 @@ The R package `renv` was used to create a **project library**, which contains al
 
 - 1. Download the entire repository by clicking "Code -> Download ZIP" on GitHub or by downloading the ZIP file in Zenodo
 - 2. Extract the ZIP file anywhere on your computer (do not change the structure of the files once extracted)
-- 3. In RStudio, click *File -> Open Project* and browse to the location where you extracted the repository; in the repository file, open the LAC_NC_TN R Project file 
-- 4. Open either of the R scripts in the `analysis/` folder
+- 3. In RStudio, click *File -> Open Project* and browse to the location where you extracted the repository; in the repository file, open the knoxaedeslandcover R Project file 
+- 4. Open any of the R scripts in the `analysis/` folder
 - 5. Run the code `renv::restore()` in the script or in the console and follow the prompt to install the packages 
   - Now you can run the R Scripts; start from the top with loading the packages and data, then work your way down line-by-line
 
@@ -50,13 +50,14 @@ This folder contains three datasets. Most are stored as a **GeoPackage** (.gpkg)
 
 ## Files within the `data/` folder
   - `knox22_joined.RDS` contains a cleaned and joined version of land cover, climate, and mosquito data in R Data Serialization format, which maintains predefined factor and numeric designations for columns. 
- - `2022-Knox-Collections-Landcover-Joined.csv` contains a cleaned and joined version of land cover, climate, and mosquito data in CSV format
+ - `knox22_joined.csv` contains a cleaned and joined version of land cover, climate, and mosquito data in CSV format -- identical to 'knox22_joined.RDS'
  - `sites22.csv` contains the names, site codes, and coordinates of the study sites
  - `aedes22_clean.csv` contains the raw mosquito collection data for the study without any climate or land cover information 
  - `NLCD_2019_landcover_clippedtoKnox.tif` contains the NLCD land cover data, already clipped to Knox County, TN, USA
  - `knox22_temperature.csv` contains raw daily temperatures for the city of Knoxville in 2022
  - `knox22_rainfall.csv` contains raw daily precipitation for the city of Knoxville watersheds in 2022
- - Each CSV file has a corresponding `..._dictionary.txt` file that defines column names and other data attributes 
+ - `rainfall_stations.csv` contains the descriptions, approximate street addresses, and geographic coordinates for rainfall monitoring sites 
+ - `data dictionary.txt` file that defines column names and other data attributes for every dataset 
 
 # `analysis/` Folder
 
@@ -64,7 +65,7 @@ The `analysis/` folder contains scripts for reproducing the purely spatial clust
 
 ## Files within the `analysis/` folder
 
-The files are numbered in the order that they were run for the original analysis. In this case, none of the analyses are dependent on the others, so they can technically be used in any order.
+The files are numbered in the order that they were run for the original analysis. In this case, none of the analyses are dependent on the others, so they can technically be used in any order. The numbers associated with each file describe the order that the analyses would normally be run. 
 
  - `(1)dataprep.R` contains the code for cleaning and combining the land cover, climate, and mosquito data -- this includes calculating the land cover percentages at different scales and calculating weekly and timelagged climate values
  - `(2)summary_analysis.R` contains code for reproducing summary data and creating graphs from the manuscript

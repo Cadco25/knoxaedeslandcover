@@ -1,0 +1,147 @@
+These datasets correspond to the manuscript titled "Fine-Scale Associations Between Land Cover Composition and the Oviposition Activity of Native and Invasive Aedes Vectors of La Crosse Virus", submitted to PLOS One. The data and associated code are included in the repository available at XXXX. Please view the README.md file (open with a text editor or view in GitHub or Zenodo) before using. Note that the datasets here are pre-processed from a variety of data sources that are described in much greater detail in the manuscript and in the repository description. 
+
+****Please cite the original sources of each data along with the manuscript and the DOI associated with the Zenodo repository of these data and analyses****
+
+Original Data Sources:
+	- Mosquito Collection Data: Collected by authors (C. Day) 
+	- Land Cover Data: Obtained from National Land Cover Database 2019 CONUS and processed by authors (see analysis/(1)dataprep.R) (download full, unclipped data: https://www.mrlc.gov/data/nlcd-2019-land-cover-conus)
+	- Climate Data: Obtained from NOAA weather station (https://www.weather.gov/mrx/tysclimate) and City of Knoxville watershed monitoring program (https://www.knoxvilletn.gov/government/city_departments_offices/engineering/stormwater_engineering_division/rainfall_data)
+
+--------------------------------------------------------------------------------
+Codebook for data file 'knox22_joined.csv' AND 'knox22_joined.RDS'
+--------------------------------------------------------------------------------
+
+This is the compiled dataset that includes all processed landcover, climate, and mosquito collection data. This file is used to produce all analyses in the manuscript. Raw data useds to compile this file are also included; see 'analysis/(1)dataprep.R' for data processessing code. The RDS file is used in code because it maintains the numeric and factor structure of columns in R. 
+
+Column Names
+	site_id: Two letter code designating the sampling site
+	trap_number: One digit code designating the location of the trap at that site (every trap number is "1" in this dataset)
+	calendar_week: The calendar week (i.e., epiweek) when data was collected
+	hatched_eggs: The number of eggs that were already hatched by the time eggs were collected from the field (i.e., they hatched in the field)
+	embryonating_eggs: The number of eggs that were embryonating after being collected from the field (i.e., viable for hatching and rearing in the lab)
+	total_eggs: Total number of hatched and embryonating eggs
+	albopictus_female: Number of adult female Aedes albopictus that were reared from eggs
+	albopictus_male: Number of adult male Aedes albopictus that were reared from eggs
+	triseriatus_female: Number of adult female Aedes triseriatus that were reared from eggs
+	triseriatus_male: Number of adult male Aedes triseriatus that were reared from eggs
+	japonicus_female: Number of adult female Aedes japonicus japonicus that were reared from eggs
+	japonicus_male: Number of adult male Aedes japonicus japonicus that were reared from eggs
+	total_albo: Total adult male and female Aedes albopictus that were reared from eggs
+	total_tris: Total adult male and female Aedes triseriatus that were reared from eggs
+	total_jap: Total adult male and female Aedes japonicus japonicus that were reared from eggs
+	rainfall_station: The closest City of Knoxville rainfall monitoring station to this site
+	percent_forest_250m: The percentage of land that was forest within a 250m radius of the sampling site
+	percent_open_250m: The percentage of land that was open within a 250m radius of the sampling site
+	percent_built_250m: The percentage of land that was built within a 250m radius of the sampling site
+	percent_water_250m: The percentage of land that was water within a 250m radius of the sampling site
+	percent_crop_250m: The percentage of land that was crops, shrubs, herbaceous plants, etc. within a 250m radius of the sampling site
+	percent_forest_1000m: The percentage of land that was forest within a 1000m radius of the sampling site
+	percent_open_1000m: The percentage of land that was open within a 1000m radius of the sampling site
+	percent_built_1000m: The percentage of land that was built within a 1000m radius of the sampling site
+	percent_water_1000m: The percentage of land that was water within a 1000m radius of the sampling site
+	percent_crop_1000m: The percentage of land that was crops, shrubs, herbaceous plants, etc. within a 1000m radius of the sampling site
+	mean_avg_temp: Average weekly temperature during the week of collection in Celsius
+	lagged_avgtemp_1week: Average weekly temperature the week before collection in Celsius
+	lagged_avgtemp_2week: Average weekly temperature two weeks before collection in Celsius
+	lagged_avg_temp_3week: Average weekly temperature three weeks before collection in Celsius
+	total_rainfall: Cumulative precipitation the week of collection in millimeters
+	lagged_rainfall_1week: Cumulative precipitation the week prior to collection
+	lagged_rainfall_2week: Cumulative precipitation the two weeks prior to collection
+	lagged_rainfall_3week: Cumulative precipitation the three weeks prior to collection 
+	calendar_month: The month when data was collected
+	domland_1000m: The most common of Forest, Open, or Built land within a 1,000m radius of the sampling site
+	domland_250m: The most common of Forest, Open, or Built land within a 250m radius of the sampling site
+	percent_hatch: The percentage of eggs that were successfully reared to adulthood
+	total_aedes: The total number of Aedes albopictus, Aedes triseriatus, and Aedes japonicus japonicus that were reared from eggs to adulthood
+	common_name: The common name describing the sampling site
+
+--------------------------------------------------------------------------------
+Codebook for data file 'aedes22_clean.csv' 
+--------------------------------------------------------------------------------
+
+This dataset includes weekly mosquito collection data for each site. 
+
+ Column Names
+	site_id: Two letter code designating the sampling site
+	trap_number: One digit code designating the location of the trap at that site (every trap number is "1" in this dataset)
+	calendar_week: The calendar week (i.e., epiweek) when data was collected
+	hatched_eggs: The number of eggs that were already hatched by the time eggs were collected from the field (i.e., they hatched in the field)
+	embryonating_eggs: The number of eggs that were embryonating after being collected from the field (i.e., viable for hatching and rearing in the lab)
+	total_eggs: Total number of hatched and embryonating eggs
+	albopictus_female: Number of adult female Aedes albopictus that were reared from eggs
+	albopictus_male: Number of adult male Aedes albopictus that were reared from eggs
+	triseriatus_female: Number of adult female Aedes triseriatus that were reared from eggs
+	triseriatus_male: Number of adult male Aedes triseriatus that were reared from eggs
+	japonicus_female: Number of adult female Aedes japonicus japonicus that were reared from eggs
+	japonicus_male: Number of adult male Aedes japonicus japonicus that were reared from eggs
+	total_albo: Total adult male and female Aedes albopictus that were reared from eggs
+	total_tris: Total adult male and female Aedes triseriatus that were reared from eggs
+	total_jap: Total adult male and female Aedes japonicus japonicus that were reared from eggs
+	rainfall_station: The closest City of Knoxville rainfall monitoring station to this site
+
+--------------------------------------------------------------------------------
+Codebook for data file 'knox22_rainfall.csv' 
+--------------------------------------------------------------------------------
+
+This dataset includes the daily rainfall from May through October at City of Knoxville rainfall monitoring stations. Precipitation values are in inches. 
+
+Column Names
+	Month: Month of rainfall data colection
+	Weekday: Day of the week (e.g., Tuesday)
+	Day: Calendar day of data collection 
+	Date: Full date of data collection in MM/DD/YY format
+	City Building–NOAA Airport: Daily rainfall total in inches at each station (column name = name of station, see rainfall_stations.csv for coordinates)
+
+--------------------------------------------------------------------------------
+Codebook for data file 'rainfall_stations.csv' 
+--------------------------------------------------------------------------------
+
+This dataset describes the location, watershed, and geographic coordinates of City of Knoxville rainfall monitoring stations.
+
+Column Names
+	Watershed: Name of the watershed where the station is located
+	Location: Approximate street address of rainfall monitoring location
+	lat: Latitude of rainfall monitoring station
+	lon: Longitude of rainfall monitoring station 
+
+--------------------------------------------------------------------------------
+Codebook for data file 'knox22_temperature.csv' 
+--------------------------------------------------------------------------------
+
+This dataset includes the daily average, maximum, and minimum temperatures from May through October at the McGhee Tyson Airport NOAA weather station. 
+
+Column Names
+	Data: Date of temperature collection
+	TAVG (Degrees Fahrenheit): Average temperature in degrees Fahrenheit
+	TMAX (Degrees Fahrenheit): Maximum temperature in degrees Fahrenheit
+	TMIN (Degrees Fahrenheit): Minimum temperature in degrees Fahrenheit
+
+--------------------------------------------------------------------------------
+Codebook for data file 'sites22.csv' 
+--------------------------------------------------------------------------------
+
+This dataset includes the full names and geographic coordinates of sampling sites from the study.
+
+Column Names
+	site_code: Two letter site code.
+	common_name: A common name describing the site
+	lon: longitude of trap location
+	lat: latitude of trap location
+
+--------------------------------------------------------------------------------
+Codebook for data file 'NLCD_2019_landcover_clippedtoKnox.tif' 
+--------------------------------------------------------------------------------
+
+This is a .tif file that contains the National Land Cover Database (NLCD) 2019 Land Cover Categories, clipped to Knox County, Tennessee, USA. The continuous values corresponding to each grid in the raster are associated with the land cover categories defined by the NLCD. This data must be analyzed in a GIS like ArcGIS or QGIS, or using spatial packages in R (see 'analysis/(1)dataprep.R' for the processing of this data in R)
+
+Column Names:
+	This data is not tabular so there are no column names. See 'https://www.mrlc.gov/data/legends/national-land-cover-database-class-legend-and-description' for description of land cover categories. 
+
+
+
+
+
+
+
+
+
