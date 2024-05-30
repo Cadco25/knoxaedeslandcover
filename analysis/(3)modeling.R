@@ -6,6 +6,8 @@
 # Questions? email coreyallenday96@gmail.com 
 # **************************************************************************** #
 
+# run renv::restore()
+
 # load packages -----------------------------------------------------------
 
 library(tidyverse)
@@ -61,7 +63,7 @@ AIC(albo_built_250m) # AIC = 3439
 albo_forest_1000m <- glmmTMB(total_albo ~ percent_forest_1000m + percent_open_1000m + (1|site_id),
                             data=knox22, family='nbinom1')
 
-AIC(albo_forest_1000m) # AIC = 3435
+AIC(albo_forest_1000m) # AIC = 3436
 
 albo_built_1000m <- glmmTMB(total_albo ~ percent_built_1000m + percent_open_1000m + (1|site_id),
                              data=knox22, family='nbinom1')
@@ -125,25 +127,25 @@ AIC(jap_built_1000m) # AIC = 217
 
 albo_temp_0week <- glmmTMB(total_albo ~ mean_avg_temp + (1|site_id),
                            data=knox22, family='nbinom1')
-AIC(albo_temp_0week) # 3430
+AIC(albo_temp_0week) # 3429
 
 albo_temp_1week <- glmmTMB(total_albo ~ lagged_avgtemp_1week + (1|site_id),
                             data=knox22, family='nbinom1')
-AIC(albo_temp_1week) # 3436
+AIC(albo_temp_1week) # 3431
 
 albo_temp_2week <- glmmTMB(total_albo ~ lagged_avgtemp_2week + (1|site_id),
                            data=knox22, family='nbinom1')
-AIC(albo_temp_2week) # 3422
+AIC(albo_temp_2week) # 3410 (best fit)
 
 albo_temp_3week <- glmmTMB(total_albo ~ lagged_avgtemp_3week +  (1|site_id),
                            data=knox22, family='nbinom1')
-AIC(albo_temp_3week) # 3416 (best fit)
+AIC(albo_temp_3week) # 3422 
 
 ##  triseriatus ----
 
 tris_temp_0week <- glmmTMB(total_tris ~ mean_avg_temp + (1|site_id),
                            data=knox22, family='nbinom1')
-AIC(tris_temp_0week) # 2739 (best fit)
+AIC(tris_temp_0week) # 2742 (best fit)
 
 tris_temp_1week <- glmmTMB(total_tris ~ lagged_avgtemp_1week + (1|site_id),
                            data=knox22, family='nbinom1')
@@ -151,11 +153,11 @@ AIC(tris_temp_1week) # 2752
 
 tris_temp_2week <- glmmTMB(total_tris ~ lagged_avgtemp_2week + (1|site_id),
                            data=knox22, family='nbinom1')
-AIC(tris_temp_2week) # 2752
+AIC(tris_temp_2week) # 2762
 
 tris_temp_3week <- glmmTMB(total_tris ~ lagged_avgtemp_3week +  (1|site_id),
                            data=knox22, family='nbinom1')
-AIC(tris_temp_3week) # 2762
+AIC(tris_temp_3week) # 2755
 
 ## japonicus ----
 
@@ -173,7 +175,7 @@ AIC(jap_temp_2week) # 222 (best fit)
 
 jap_temp_3week <- glmmTMB(ifelse(total_jap>0,1,0) ~ lagged_avgtemp_3week + (1|site_id),
                            data=knox22, family='binomial')
-AIC(jap_temp_3week) # 223 
+AIC(jap_temp_3week) # 224 
 
 
 
@@ -183,21 +185,21 @@ AIC(jap_temp_3week) # 223
 
 albo_rainfall_1week <- glmmTMB(total_albo ~ lagged_rainfall_1week + (1|site_id),
                            data=knox22, family='nbinom1')
-AIC(albo_rainfall_1week) # 3440
+AIC(albo_rainfall_1week) # 3436
 
 albo_rainfall_2week <- glmmTMB(total_albo ~ lagged_rainfall_2week + (1|site_id),
                            data=knox22, family='nbinom1')
-AIC(albo_rainfall_2week) # 3441
+AIC(albo_rainfall_2week) # 3433 (very slightly best fit) 
 
 albo_rainfall_3week <- glmmTMB(total_albo ~ lagged_rainfall_3week + (1|site_id),
                            data=knox22, family='nbinom1')
-AIC(albo_rainfall_3week) # 3440 (very slightly best fit) 
+AIC(albo_rainfall_3week) # 3434 
 
 ## triseriatus ----
 
 tris_rainfall_1week <- glmmTMB(total_tris ~ lagged_rainfall_1week + (1|site_id),
                              data=knox22, family='nbinom1')
-AIC(tris_rainfall_1week) # 2762 (best fit)
+AIC(tris_rainfall_1week) # 2763 
 
 tris_rainfall_2week <- glmmTMB(total_tris ~ lagged_rainfall_2week + (1|site_id),
                              data=knox22, family='nbinom1')
@@ -205,14 +207,14 @@ AIC(tris_rainfall_2week) # 2763
 
 tris_rainfall_3week <- glmmTMB(total_tris ~ lagged_rainfall_3week + (1|site_id),
                              data=knox22, family='nbinom1')
-AIC(tris_rainfall_3week) # 2763
+AIC(tris_rainfall_3week) # 2761 (best fit)
 
 
 ## japonicus ----
 
 jap_rainfall_1week <- glmmTMB(ifelse(total_jap>0,1,0) ~ lagged_rainfall_1week + (1|site_id),
                           data=knox22, family='binomial')
-AIC(jap_rainfall_1week) # 221 (best fit)
+AIC(jap_rainfall_1week) # 223
 
 jap_rainfall_2week <- glmmTMB(ifelse(total_jap>0,1,0) ~ lagged_rainfall_2week + (1|site_id),
                           data=knox22, family='binomial')
@@ -220,5 +222,5 @@ AIC(jap_rainfall_2week) # 222
 
 jap_rainfall_3week <- glmmTMB(ifelse(total_jap>0,1,0) ~ lagged_rainfall_3week + (1|site_id),
                           data=knox22, family='binomial')
-AIC(jap_rainfall_3week) # 223
+AIC(jap_rainfall_3week) # 221
 

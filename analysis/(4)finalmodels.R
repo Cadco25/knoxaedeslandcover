@@ -6,6 +6,8 @@
 # Questions? email coreyallenday96@gmail.com 
 # **************************************************************************** #
 
+# run renv::restore() 
+
 # load packages -----------------------------------------------------------
 
 
@@ -42,8 +44,8 @@ knox22_coords <- knox22 %>%
 
 ##  fit full model ----
 albo_fullmod <- glmmTMB(total_albo ~ percent_forest_250m_scaled + percent_open_250m_scaled +
-                                     lagged_avgtemp_3week +
-                                     lagged_precip_1week +
+                                     lagged_avgtemp_2week +
+                                     lagged_rainfall_2week +
                                      calendar_month + 
                                     (1|site_id), 
                         data=knox22, family='nbinom1')
@@ -54,8 +56,8 @@ tab_model(albo_fullmod)
 
 ### fit model without calendar month ----
 albo_fullmod_red <- glmmTMB(total_albo ~ percent_forest_250m_scaled + percent_open_250m_scaled +
-                              lagged_avgtemp_3week +
-                              lagged_precip_1week +
+                              lagged_avgtemp_2week +
+                              lagged_rainfall_2week +
                               (1|site_id), 
                             data=knox22, family='nbinom1')
 
@@ -84,9 +86,15 @@ DHARMa::testSpatialAutocorrelation(albo_fullmod_simoutput, # simmed residuals wi
 
 ## fit full model ----
 
-tris_fullmod <- glmmTMB(total_tris ~ percent_forest_1000m_scaled + percent_open_1000m_scaled +
+tris_fullmod <- glmmTMB(total_tris ~ percent_forest_1000m_scaled + percent_open_1000m_scaled+
                           mean_avg_temp + 
-                          lagged_precip_1week + 
+                          lagged_rainfall_3week+
+                          calendar_month + 
+                          (1|site_id),
+                        data=knox22, family='nbinom1')
+
+
+tris_fullmod <- glmmTMB(total_tris ~ 
                           calendar_month + 
                           (1|site_id),
                         data=knox22, family='nbinom1')
@@ -98,7 +106,7 @@ tab_model(tris_fullmod)
 
 tris_fullmod_red <- glmmTMB(total_tris ~ percent_forest_1000m_scaled + percent_open_1000m_scaled +
                               mean_avg_temp + 
-                              lagged_precip_1week + 
+                              lagged_rainfall_3week + 
                               (1|site_id),
                             data=knox22, family='nbinom1')
 
@@ -129,7 +137,7 @@ DHARMa::testSpatialAutocorrelation(tris_fullmod_simoutput,# simmed residuals wit
 
 jap_fullmod <- glmmTMB(ifelse(total_jap>0,1,0) ~ percent_forest_1000m_scaled + percent_open_1000m_scaled + 
                          calendar_month + 
-                         mean_avg_temp + 
+                         lagged_avgtemp_2week +
                          lagged_rainfall_3week +
                          (1|site_id),
                       data=knox22, family='binomial')
@@ -140,7 +148,7 @@ tab_model(jap_fullmod)
 ### fit model without calendar month for LRT ----
 
 jap_fullmod_red <- glmmTMB(ifelse(total_jap>0,1,0) ~ percent_forest_1000m_scaled + percent_open_1000m_scaled + 
-                             mean_avg_temp + 
+                             lagged_avgtemp_2week + 
                              lagged_rainfall_3week +
                              (1|site_id),
                            data=knox22, family='binomial')

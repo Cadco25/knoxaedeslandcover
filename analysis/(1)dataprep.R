@@ -6,6 +6,8 @@
 # Questions? email coreyallenday96@gmail.com 
 # **************************************************************************** #
 
+# run renv::restore()
+
 # load packages -----------------------------------------------------------
 
 library('tidyverse') # for data manipulation
@@ -201,7 +203,7 @@ rainfall_weekly$calendar_week <- as.numeric(rainfall_weekly$calendar_week)
 
 knox22_joined <- left_join(knox22_lulc,temperature_weekly,
                            by=c('calendar_week' = 'calendar_week'),
-                           multiple='all') %>% # bc there are mulitple matches
+                           multiple='all') %>% # bc there are multiple matches
   left_join(rainfall_weekly,
             by=c('calendar_week' = 'calendar_week','rainfall_station'='station')) %>%
   
@@ -275,6 +277,8 @@ knox22_joined$domland_1000m <- factor(knox22_joined$domland_1000m,
 knox22_joined <- knox22_joined %>% 
   left_join(sites_22, by=c('site_id' = 'site_code'))
 
+knox22_joined$lon <- st_coordinates(st_as_sf(knox22_joined))[,1] # save x coord
+knox22_joined$lat <- st_coordinates(st_as_sf(knox22_joined))[,2] # save y coord
 
 # save the final dataset  -------------------------------------------------
 

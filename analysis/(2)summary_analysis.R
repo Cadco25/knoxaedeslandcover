@@ -6,6 +6,8 @@
 # Questions? email coreyallenday96@gmail.com 
 # **************************************************************************** #
 
+# run renv::restore()
+
 # load packages -----------------------------------------------------------
 
 library(tidyverse) # for data manipulation and pipes
@@ -101,9 +103,7 @@ total_jap/(total_albo+total_tris+total_jap) # 0.76% jap
             mean_albo = mean(total_albo, na.rm=TRUE),
             se_albo = parameters::standard_error(total_albo, na.rm=TRUE),
             mean_jap = mean(total_jap, na.rm=TRUE),
-            se_jap = parameters::standard_error(total_jap, na.rm=TRUE),
-            mean_eggs = mean(total_eggs,na.rm=TRUE),
-            se_eggs = parameters::standard_error(total_eggs,na.rm=TRUE))
+            se_jap = parameters::standard_error(total_jap, na.rm=TRUE))
 )
 
 ## summary stats by month ----
@@ -120,7 +120,7 @@ total_jap/(total_albo+total_tris+total_jap) # 0.76% jap
             se_eggs = parameters::standard_error(total_eggs,na.rm=TRUE))
 )
 
-## TABLE 1 basic summary stats at 250m ----
+## TABLE 2 basic summary stats at 250m and 1000m----
 
 (summary_landcover <- knox22 %>%
   group_by(domland_250m) %>%
@@ -150,6 +150,34 @@ total_jap/(total_albo+total_tris+total_jap) # 0.76% jap
             percent_jap = sum_jap/(sum_tris+sum_albo+sum_jap)*100)
  )
 
+(summary_landcover <- knox22 %>%
+    group_by(domland_1000m) %>%
+    summarise(sum_eggs=sum(total_eggs, na.rm=TRUE),
+              mean_eggs = mean(total_eggs, na.rm=TRUE),
+              sd_eggs = sd(total_eggs, na.rm=TRUE),
+              sum_tris=sum(total_tris, na.rm=TRUE),
+              median_tris = median(total_tris,na.rm=TRUE),
+              iqr_tris = IQR(total_tris, na.rm=TRUE),
+              mean_tris = mean(total_tris, na.rm=TRUE),
+              sd_tris = sd(total_tris, na.rm=TRUE),
+              se_tris = parameters::standard_error(total_tris, na.rm=TRUE),
+              sum_albo=sum(total_albo, na.rm=TRUE),
+              median_albo = median(total_albo,na.rm=TRUE),
+              iqr_albo = IQR(total_albo, na.rm=TRUE),
+              mean_albo = mean(total_albo, na.rm=TRUE),
+              sd_albo = sd(total_albo, na.rm=TRUE),
+              se_albo = parameters::standard_error(total_albo, na.rm=TRUE),
+              sum_jap=sum(total_jap, na.rm=TRUE),
+              median_jap = median(total_jap,na.rm=TRUE),
+              iqr_jap = IQR(total_jap, na.rm=TRUE),
+              mean_jap = mean(total_jap, na.rm=TRUE),
+              sd_jap = sd(total_jap, na.rm=TRUE),
+              se_jap = parameters::standard_error(total_jap, na.rm=TRUE),
+              percent_tris = sum_tris/(sum_tris+sum_albo+sum_jap)*100,
+              percent_albo = sum_albo/(sum_tris+sum_albo+sum_jap)*100,
+              percent_jap = sum_jap/(sum_tris+sum_albo+sum_jap)*100)
+)
+
 
 # plot species together by month ------------------------------------------
 
@@ -160,16 +188,16 @@ summ_month_long1 <- summary_month %>%
   gather(species, mean, c('mean_tris','mean_albo','mean_jap')) %>%
   mutate(species = case_when(species=='mean_tris'~'Aedes triseriatus',
                              species=='mean_albo'~'Aedes albopictus',
-                             species=='mean_jap'~'Aedes j. japonicus')) %>%
-  select(calendar_month, species, mean)
+                             species=='mean_jap'~'Aedes japonicus')) %>%
+  dplyr::select(calendar_month, species, mean)
 
 # gather by se 
 summ_month_long2 <- summary_month %>%
   gather(species, se, c('se_tris','se_albo','se_jap')) %>%
   mutate(species = case_when(species=='se_tris'~'Aedes triseriatus',
                              species=='se_albo'~'Aedes albopictus',
-                             species=='se_jap'~'Aedes j. japonicus')) %>%
-  select(calendar_month, species, se)
+                             species=='se_jap'~'Aedes japonicus')) %>%
+  dplyr::select(calendar_month, species, se)
 
 # join them 
 
@@ -182,7 +210,7 @@ pos=position_dodge(width=0.3)
 summ_month_long$species <- factor(summ_month_long$species, 
                                   levels=c('Aedes albopictus',
                                            'Aedes triseriatus',
-                                           'Aedes j. japonicus'))
+                                           'Aedes japonicus'))
 
 (species_bymonth_plot <- ggplot(summ_month_long, aes(x=calendar_month,y=mean,
                             ymin=mean-se,
@@ -224,11 +252,11 @@ lc_long_250m <- knox22 %>% group_by(domland_250m) %>%
   gather(species, total, c('total_tris','total_albo','total_jap')) %>%
   mutate(species = case_when(species=='total_tris'~'Aedes triseriatus',
                              species=='total_albo'~'Aedes albopictus',
-                             species=='total_jap'~'Aedes j. japonicus')) %>%
-  select(calendar_month, species, total) %>%
+                             species=='total_jap'~'Aedes japonicus')) %>%
+  dplyr::select(calendar_month, species, total) %>%
   mutate(species=factor(species, levels=c('Aedes albopictus',
                                           'Aedes triseriatus',
-                                          'Aedes j. japonicus')))
+                                          'Aedes japonicus')))
 
 ### plot 250m dom landcover data ---- 
 
@@ -241,7 +269,7 @@ lc_long_250m <- knox22 %>% group_by(domland_250m) %>%
                    labels=c("Forest","Open","Built"))+
   scale_color_manual(values=c('#d95f02','#7570b3','#1b9e77'),
                      labels=c("Aedes albopictus","Aedes triseriatus",
-                              "Aedes j. japonicus")) +
+                              "Aedes japonicus")) +
   custom_theme(legend_pos='none')
 )
 
@@ -253,11 +281,11 @@ lc_long_1000m <- knox22 %>% group_by(domland_1000m) %>%
   gather(species, total, c('total_tris','total_albo','total_jap')) %>%
   mutate(species = case_when(species=='total_tris'~'Aedes triseriatus',
                              species=='total_albo'~'Aedes albopictus',
-                             species=='total_jap'~'Aedes j. japonicus')) %>%
-  select(calendar_month, species, total) %>%
+                             species=='total_jap'~'Aedes japonicus')) %>%
+  dplyr::select(calendar_month, species, total) %>%
   mutate(species=factor(species, levels=c('Aedes albopictus',
                                           'Aedes triseriatus',
-                                          'Aedes j. japonicus')))
+                                          'Aedes japonicus')))
 
 ### plot 1000m dom landcover data ----
 
@@ -270,7 +298,7 @@ lc_long_1000m <- knox22 %>% group_by(domland_1000m) %>%
                    labels=c("Forest","Open","Built"))+
   scale_color_manual(values=c('#d95f02','#7570b3','#1b9e77'),
                      labels=c("Aedes albopictus","Aedes triseriatus",
-                              "Aedes j. japonicus")) +
+                              "Aedes japonicus")) +
   custom_theme(legend_pos = 'none')
 )
 
@@ -287,11 +315,11 @@ forest_long_250m <- knox22 %>% group_by(percent_forest_250m) %>%
   gather(species, total, c('total_tris','total_albo','total_jap')) %>%
   mutate(species = case_when(species=='total_tris'~'Aedes triseriatus',
                              species=='total_albo'~'Aedes albopictus',
-                             species=='total_jap'~'Aedes j. japonicus')) %>%
-  select(calendar_month, species, total) %>%
+                             species=='total_jap'~'Aedes japonicus')) %>%
+  dplyr::select(calendar_month, species, total) %>%
   mutate(species=factor(species, levels=c('Aedes albopictus',
                                           'Aedes triseriatus',
-                                          'Aedes j. japonicus')),
+                                          'Aedes japonicus')),
          bin = cut(percent_forest_250m, breaks=seq(0, 100, by=20),right=FALSE))
 
 ### plot mosquitoes by percent forest 250m ----
@@ -308,7 +336,7 @@ forest_long_250m <- knox22 %>% group_by(percent_forest_250m) %>%
   scale_y_continuous(expand=c(0,0), # fill entire vertical space
                      name=element_blank()) + # no axis label, will add global label later 
   scale_color_manual(values=c('#d95f02','#7570b3','#1b9e77'), # manually define species colors 
-                     labels=c("Aedes albopictus","Aedes triseriatus","Aedes j. japonicus")) + # define species labels
+                     labels=c("Aedes albopictus","Aedes triseriatus","Aedes japonicus")) + # define species labels
   custom_theme(legend_pos = 'none') # use custom theme, defined at beginning of script
 )
 
@@ -320,11 +348,11 @@ forest_long_1000m <- knox22 %>% group_by(percent_forest_1000m) %>%
   gather(species, total, c('total_tris','total_albo','total_jap')) %>%
   mutate(species = case_when(species=='total_tris'~'Aedes triseriatus',
                              species=='total_albo'~'Aedes albopictus',
-                             species=='total_jap'~'Aedes j. japonicus')) %>%
-  select(calendar_month, species, total) %>%
+                             species=='total_jap'~'Aedes japonicus')) %>%
+  dplyr::select(calendar_month, species, total) %>%
   mutate(species=factor(species, levels=c('Aedes albopictus',
                                           'Aedes triseriatus',
-                                          'Aedes j. japonicus')),
+                                          'Aedes japonicus')),
          bin = cut(percent_forest_1000m, breaks=seq(0, 100, by=20),right=FALSE))
 
 ### plot mosquitoes by percent forest 1000m ----
@@ -335,14 +363,14 @@ forest_long_1000m <- knox22 %>% group_by(percent_forest_1000m) %>%
            color=species, # color by species
            group=interaction(species,bin))) + # group species by forest bin 
   geom_boxplot(size=1, width=1, outlier.shape=NA) + # define boxplot size and suppress outliers
-  scale_x_discrete(name='% Forest (1000m)', # name for x axis 
+  scale_x_discrete(name='% Forest (1,000m)', # name for x axis 
                    drop=FALSE, # do not drop empty bins in x axis 
                    labels=forest_labs) + # axis tick labels (labels defined outside of ggplot)
   coord_cartesian(ylim=c(0,410)) + # limits of y axis 
   scale_y_continuous(expand=c(0,0), # fill entire vertical space 
                      name=element_blank()) + # no axis label, will add global label later 
   scale_color_manual(values=c('#d95f02','#7570b3','#1b9e77'), # manually define species colors 
-                     labels=c("Aedes albopictus","Aedes triseriatus","Aedes j. japonicus")) + # define species labels
+                     labels=c("Aedes albopictus","Aedes triseriatus","Aedes japonicus")) + # define species labels
   custom_theme(legend_pos = 'none') # use custom theme, defined at beginning of script
 )
 
@@ -360,7 +388,7 @@ legend_only <- get_only_legend( # function defined at start of script
      geom_boxplot(outlier.shape = NA, size=1) +
      scale_color_manual(values=c('#d95f02','#7570b3','#1b9e77'),
                         labels=c("Aedes albopictus","Aedes triseriatus",
-                                 "Aedes j. japonicus")) +
+                                 "Aedes japonicus")) +
      custom_theme(legend_pos='top')
   )
 
